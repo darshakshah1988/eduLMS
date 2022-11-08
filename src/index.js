@@ -1,21 +1,21 @@
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { ParallaxProvider } from 'react-scroll-parallax';
-
-const rootElement = document.getElementById( 'root' );
-const root = createRoot( rootElement );
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App";
+import { ParallaxProvider } from "react-scroll-parallax";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/lib/integration/react";
+import { persistor, store } from "./store";
+const rootElement = document.getElementById("root");
+const root = createRoot(rootElement);
 
 root.render(
-    <StrictMode>
+  <StrictMode>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
         <ParallaxProvider>
-            <App />
+          <App />
         </ParallaxProvider>
-    </StrictMode>
+      </PersistGate>
+    </Provider>
+  </StrictMode>
 );
-
-// // If you want to start measuring performance in your app, pass a function
-// // to log results (for example: reportWebVitals(console.log))
-// // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

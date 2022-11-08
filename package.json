@@ -1,58 +1,83 @@
 {
-    "name": "eduvibe",
-    "version": "0.1.2",
-    "private": true,
-    "homepage": "https://eduvibe.react.devsvibe.com/",
-    "dependencies": {
-        "@testing-library/jest-dom": "^5.16.3",
-        "@testing-library/react": "^12.1.4",
-        "@testing-library/user-event": "^13.5.0",
-        "bootstrap": "^5.1.3",
-        "disqus-react": "^1.1.2",
-        "emailjs-com": "^3.2.0",
-        "node-sass": "^7.0.1",
-        "parallax-js": "^3.1.0",
-        "react": "^18.0.0",
-        "react-animate-on-scroll": "^2.1.5",
-        "react-bootstrap": "^2.0.4",
-        "react-countdown": "^2.3.2",
-        "react-countup": "^6.1.0",
-        "react-dom": "^18.0.0",
-        "react-icons": "^4.3.1",
-        "react-masonry-css": "^1.0.16",
-        "react-on-screen": "^2.1.1",
-        "react-router-dom": "^6.3.0",
-        "react-scripts": "5.0.0",
-        "react-scroll": "^1.8.4",
-        "react-scroll-parallax": "^2.4.3",
-        "react-slick": "^0.28.1",
-        "web-vitals": "^2.1.4"
-    },
-    "scripts": {
-        "start": "react-scripts start",
-        "build": "react-scripts build",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject"
-    },
-    "eslintConfig": {
-        "extends": [
-            "react-app",
-            "react-app/jest"
-        ]
-    },
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
-    },
-    "devDependencies": {
-        "fslightbox-react": "^1.6.2-2"
-    }
+  "name": "eduvibe",
+  "version": "0.1.2",
+  "private": true,
+  "homepage": "https://eduvibe.react.devsvibe.com/",
+  "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^35.3.0",
+    "@ckeditor/ckeditor5-react": "^5.0.2",
+    "@coreui/chartjs": "^3.0.0",
+    "@coreui/coreui": "^4.2.1",
+    "@coreui/icons": "^2.1.0",
+    "@coreui/icons-react": "^2.1.0",
+    "@coreui/react": "^4.3.1",
+    "@coreui/react-chartjs": "^2.1.0",
+    "@coreui/utils": "^1.3.1",
+    "@testing-library/jest-dom": "^5.16.3",
+    "@testing-library/react": "^12.1.4",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^0.27.2",
+    "bootstrap": "^5.1.3",
+    "chart.js": "^3.9.1",
+    "classnames": "^2.3.1",
+    "core-js": "^3.24.1",
+    "disqus-react": "^1.1.2",
+    "emailjs-com": "^3.2.0",
+    "formik": "^2.2.9",
+    "moment": "^2.29.4",
+    "node-sass": "^7.0.1",
+    "parallax-js": "^3.1.0",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-animate-on-scroll": "^2.1.5",
+    "react-app-polyfill": "^3.0.0",
+    "react-bootstrap": "^2.0.4",
+    "react-countdown": "^2.3.2",
+    "react-countup": "^6.1.0",
+    "react-dom": "^18.2.0",
+    "react-dropzone": "^14.2.3",
+    "react-icons": "^4.3.1",
+    "react-masonry-css": "^1.0.16",
+    "react-on-screen": "^2.1.1",
+    "react-redux": "^8.0.2",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "5.0.0",
+    "react-scroll": "^1.8.4",
+    "react-scroll-parallax": "^2.4.3",
+    "react-slick": "^0.28.1",
+    "react-toastify": "^9.0.8",
+    "redux": "4.2.0",
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^2.4.1",
+    "simplebar-react": "^2.4.1",
+    "web-vitals": "^2.1.4",
+    "yup": "^0.32.11"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "fslightbox-react": "^1.6.2-2"
+  }
 }
