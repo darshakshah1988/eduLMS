@@ -18,9 +18,10 @@ const LectureComponent = (props) => {
   const formik = useFormik({
     initialValues: {
       title: "",
+      details: "",
     },
-    onSubmit: ({ title }) => {
-      const fdata = { title, order, sectionId, status: "active" };
+    onSubmit: ({ title, details }) => {
+      const fdata = { title, details, order, sectionId, status: "active" };
 
       createLectureAction(fdata).then((response) => {
         if (response.status) {
@@ -64,7 +65,6 @@ const LectureComponent = (props) => {
         setProgress(0);
       });
   };
-  console.log(selectFile);
   if (isNew) {
     return (
       <div className="lecture-section new-lecture">
@@ -72,7 +72,7 @@ const LectureComponent = (props) => {
           <div className="row">
             <div className="col-md-12 mb-2">
               <label htmlFor="title" className="form-label">
-                Section Title *
+                Lecture Title *
               </label>
               <input
                 type="text"
@@ -85,6 +85,18 @@ const LectureComponent = (props) => {
               {formik.errors.title && formik.touched.title && (
                 <div className="invalid-feedback">{formik.errors.title}</div>
               )}
+            </div>
+            <div className="col-md-12 mb-2">
+              <label htmlFor="title" className="form-label">
+                Lecture Details *
+              </label>
+              <textarea
+                className="form-control"
+                id="details"
+                name="details"
+                value={formik.values.details}
+                onChange={formik.handleChange}
+              />
             </div>
           </div>
           <div className="action">
@@ -125,6 +137,7 @@ const LectureComponent = (props) => {
         </div>
       </div>
       <div className={`lecture-body ${isOpen ? "open" : ""}`}>
+        <p>{lecture.details}</p>
         {lecture?.video ? (
           <div className="content">
             <video width="130" height="90">

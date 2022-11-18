@@ -3,6 +3,11 @@ import { Link } from "react-router-dom";
 import { slugify } from "../../utils";
 
 const CourseTypeOne = ({ data, classes }) => {
+  const lecture = data?.sections?.reduce(
+    (acc, section) => acc + section.lectures.length,
+    0
+  );
+  console.log(lecture);
   return (
     <div
       className={`edu-card card-type-3 radius-small ${classes ? classes : ""}`}
@@ -12,7 +17,7 @@ const CourseTypeOne = ({ data, classes }) => {
           <Link to={process.env.PUBLIC_URL + `/course-details/${data.slug}`}>
             <img
               className="w-100"
-              src={`${process.env.PUBLIC_URL}/images/course/course-01/course-01.jpg`}
+              src={`${process.env.REACT_APP_API_BASE_URL}/static/${data?.cover_image}`}
               alt="Course Thumb"
             />
           </Link>
@@ -55,7 +60,8 @@ const CourseTypeOne = ({ data, classes }) => {
             </div>
             <ul className="edu-meta meta-02">
               <li>
-                <i className="icon-file-list-3-line"></i>2 Lessons
+                <i className="icon-file-list-3-line"></i>
+                {lecture} Lessons
               </li>
             </ul>
           </div>

@@ -38,13 +38,13 @@ const AppSidebar = () => {
         {/* <CIcon className="sidebar-brand-full" icon={logoNegative} height={35} />
         <CIcon className="sidebar-brand-narrow" icon={sygnet} height={35} /> */}
         <img
-          src="/images/logo/idevelope.jpeg"
+          src="/images/logo/idevelope-white.png"
           alt="Logo"
           className="icon icon-custom-size sidebar-brand-full"
-          height={35}
+          height={60}
         />
         <img
-          src="/images/logo/idevelope.jpeg"
+          src="/images/logo/idevelope.png"
           alt="Logo"
           className="icon icon-custom-size sidebar-brand-narrow"
           height={35}

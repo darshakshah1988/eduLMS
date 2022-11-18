@@ -46,7 +46,7 @@ const HeaderTwo = ({
               <Link to={process.env.PUBLIC_URL + "/"}>
                 <img
                   className="logo-light"
-                  src="/images/logo/idevelope.jpeg"
+                  src="/images/logo/idevelope.png"
                   alt="Main Logo"
                 />
               </Link>

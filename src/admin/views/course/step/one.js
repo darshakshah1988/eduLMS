@@ -7,9 +7,20 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { createCourseStepOne } from "src/actions/courseActions";
 import { toast } from "react-toastify";
+import Dropzone from "react-dropzone";
+import { useState } from "react";
+import {
+  uploadImageAction,
+  uploadVideoAction,
+} from "src/actions/generalActions";
 
 const CourseStepOne = () => {
   const navigate = useNavigate();
+  const [videoDropRejectError, setVideoDropRejectError] = useState([]);
+  const [selectVideoFile, setSelectVideoFile] = useState(null);
+
+  const [coverDropRejectError, setCoverDropRejectError] = useState([]);
+  const [selectCoverFile, setSelectCoverFile] = useState(null);
 
   const formik = useFormik({
     initialValues: {
@@ -19,6 +30,7 @@ const CourseStepOne = () => {
       skill_level: "",
       language: "",
       pass_percentage: "",
+      previewVideo: "",
     },
     onSubmit: (values) => {
       const data = new FormData();
@@ -27,7 +39,8 @@ const CourseStepOne = () => {
       data.append("skill_level", values.skill_level);
       data.append("language", values.language);
       data.append("pass_percentage", values.pass_percentage);
-      data.append("coverImage", values.coverImage);
+      data.append("cover_image", values.coverImage);
+      data.append("preview_video", values.previewVideo);
       createCourseStepOne(data)
         .then((response) => {
           console.log(response);
@@ -54,9 +67,28 @@ const CourseStepOne = () => {
         .min(35, "Pass percentage minimum 35")
         .max(90, "Pass percentage maximum 90")
         .required("Pass percentage is required"),
+      coverImage: Yup.string().required("Cover image is required"),
+      previewVideo: Yup.string().required("Preview video is required"),
     }),
   });
-
+  const onSelectVideo = (files) => {
+    const file = files[0];
+    setSelectVideoFile(file);
+    const data = new FormData();
+    data.append("video", file);
+    uploadVideoAction(data).then((response) => {
+      formik.setFieldValue("previewVideo", response.data);
+    });
+  };
+  const onSelectCoverImage = (files) => {
+    const file = files[0];
+    setSelectCoverFile(file);
+    const data = new FormData();
+    data.append("image", file);
+    uploadImageAction(data).then((response) => {
+      formik.setFieldValue("coverImage", response.data);
+    });
+  };
   return (
     <CCard className="mb-4">
       <CCardHeader>Create a new course</CCardHeader>
@@ -79,8 +111,6 @@ const CourseStepOne = () => {
                 <div className="invalid-feedback">{formik.errors.title}</div>
               )}
             </div>
-          </div>
-          <div className="row">
             <div className="col-md-6 mb-2">
               <label htmlFor="skill" className="form-label">
                 Skill Level *
@@ -124,8 +154,6 @@ const CourseStepOne = () => {
                 <div className="invalid-feedback">{formik.errors.language}</div>
               )}
             </div>
-          </div>
-          <div className="row">
             <div className="col-md-6 mb-2">
               <label htmlFor="pass_percentage" className="form-label">
                 Pass Percentage *
@@ -144,6 +172,108 @@ const CourseStepOne = () => {
                     {formik.errors.pass_percentage}
                   </div>
                 )}
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-6 mb-2">
+              <label htmlFor="lang" className="form-label">
+                Preview Video *
+              </label>
+              {!selectVideoFile ? (
+                <>
+                  <Dropzone
+                    accept={{ "video/mp4": [] }}
+                    onDrop={(acceptedFiles) => onSelectVideo(acceptedFiles)}
+                    onDropRejected={(fileRejections) =>
+                      setVideoDropRejectError(fileRejections)
+                    }
+                    multiple={false}
+                  >
+                    {({ getRootProps, getInputProps }) => (
+                      <div className="drop-zone">
+                        <div className="container" {...getRootProps()}>
+                          <input {...getInputProps()} />
+                          <span>Drag & Drop</span>
+                          <b>or</b>
+                          <button className="btn-text">Upload Video</button>
+                        </div>
+                      </div>
+                    )}
+                  </Dropzone>
+                  {videoDropRejectError.map((file) => (
+                    <p className="invalid-feedback" key={file.file.name}>
+                      {file.file.name} is not valid file type
+                    </p>
+                  ))}
+                </>
+              ) : (
+                <div className="drop-zone">
+                  <div className="container">
+                    <span className="file-name">{selectVideoFile.name}</span>
+                    <span className="file-size">
+                      <b>
+                        {(selectVideoFile.size / (1024 * 1024)).toFixed(2)} Mb
+                      </b>
+                    </span>
+                  </div>
+                </div>
+              )}
+              {formik.errors.previewVideo && formik.touched.previewVideo && (
+                <div className="invalid-feedback">
+                  {formik.errors.previewVideo}
+                </div>
+              )}
+            </div>
+            <div className="col-md-6 mb-2">
+              <label htmlFor="lang" className="form-label">
+                Cover Image *
+              </label>
+              {!selectCoverFile ? (
+                <>
+                  <Dropzone
+                    accept={{ "image/*": [] }}
+                    onDrop={(acceptedFiles) =>
+                      onSelectCoverImage(acceptedFiles)
+                    }
+                    onDropRejected={(fileRejections) =>
+                      setCoverDropRejectError(fileRejections)
+                    }
+                    multiple={false}
+                  >
+                    {({ getRootProps, getInputProps }) => (
+                      <div className="drop-zone">
+                        <div className="container" {...getRootProps()}>
+                          <input {...getInputProps()} />
+                          <span>Drag & Drop</span>
+                          <b>or</b>
+                          <button className="btn-text">Upload Video</button>
+                        </div>
+                      </div>
+                    )}
+                  </Dropzone>
+                  {coverDropRejectError.map((file) => (
+                    <p className="invalid-feedback" key={file.file.name}>
+                      {file.file.name} is not valid file type
+                    </p>
+                  ))}
+                </>
+              ) : (
+                <div className="drop-zone">
+                  <div className="container">
+                    <span className="file-name">{selectCoverFile.name}</span>
+                    <span className="file-size">
+                      <b>
+                        {(selectCoverFile.size / (1024 * 1024)).toFixed(2)} Mb
+                      </b>
+                    </span>
+                  </div>
+                </div>
+              )}
+              {formik.errors.coverImage && formik.touched.coverImage && (
+                <div className="invalid-feedback">
+                  {formik.errors.coverImage}
+                </div>
+              )}
             </div>
           </div>
           <div className="row">

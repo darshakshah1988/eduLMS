@@ -15,8 +15,10 @@ const FooterOne = () => {
                     <Link to={process.env.PUBLIC_URL + "/"}>
                       <img
                         className="logo-light"
-                        src="/images/logo/logo-white.png"
+                        src="/images/logo/idevelope-white.png"
                         alt="Footer Logo"
+                        height="50"
+                        style={{ height: "60px" }}
                       />
                     </Link>
                   </div>

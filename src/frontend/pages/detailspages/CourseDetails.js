@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -56,12 +57,16 @@ const CurriculumContent = ({ curriculumTabContent }) => {
             </CustomToggle>
           </div>
           <Accordion.Body bsPrefix="edu-accordion-body">
+            <p className="section-details">{accordion.details}</p>
             <ul>
               {accordion.lectures.map((lecture, index) => (
                 <li key={index}>
                   <div className="text">
-                    <i className="icon-draft-line"></i>
-                    {lecture.title}
+                    <div>
+                      <i className="icon-draft-line"></i>
+                      {lecture.title}
+                    </div>
+                    <p className="lecture-details">{lecture.details}</p>
                   </div>
                   <div className="icon">
                     <i className="icon-lock-password-line"></i>
@@ -123,7 +128,11 @@ const CourseDetails = () => {
                 <div className="main-image thumbnail">
                   <img
                     className="radius-small"
-                    src={`${process.env.PUBLIC_URL}/images/course/course-details/course-04.jpeg`}
+                    src={
+                      courseItem?.cover_image
+                        ? `${process.env.REACT_APP_API_BASE_URL}/static/${courseItem?.cover_image}`
+                        : `${process.env.PUBLIC_URL}/images/course/course-details/course-04.jpeg`
+                    }
                     alt="Course Thumb"
                   />
                 </div>
@@ -164,7 +173,7 @@ const CourseDetails = () => {
                         <i className="icon-Star"></i>
                       </div>
                       <span className="rating-count">
-                        ({courseItem?.review ?? 0} Review)
+                        ({courseItem?.reviews?.length ?? 0} Review)
                       </span>
                     </div>
                   </div>

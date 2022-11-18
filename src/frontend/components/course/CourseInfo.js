@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import FsLightbox from "fslightbox-react";
+import { Player, Video } from "@vime/react";
 
 const CourseInfo = ({ data }) => {
   const [toggler, setToggler] = useState(false);
+  const lecture = data?.sections?.reduce(
+    (acc, section) => acc + section.lectures.length,
+    0
+  );
   return (
     <div className="eduvibe-sidebar course-details-sidebar">
       <div className="inner">
@@ -11,7 +16,11 @@ const CourseInfo = ({ data }) => {
             <div className="thumbnail video-popup-wrapper">
               <img
                 className="radius-small w-100"
-                src={`${process.env.PUBLIC_URL}/images/course/video-bg/course-04.jpg`}
+                src={
+                  data?.cover_image
+                    ? `${process.env.REACT_APP_API_BASE_URL}/static/${data?.cover_image}`
+                    : `${process.env.PUBLIC_URL}/images/course/video-bg/course-04.jpg`
+                }
                 alt="Course Video Thumb"
               />
               <button
@@ -20,10 +29,18 @@ const CourseInfo = ({ data }) => {
               >
                 <span className="play-icon"></span>
               </button>
-              {/* <FsLightbox
-                toggler={toggler}
-                sources={`${process.env.REACT_APP_API_BASE_URL}/static/videos/${data?.sections[0]?.lectures[0]?.video}`}
-              /> */}
+              {data?.sections?.length > 0 && (
+                <FsLightbox
+                  toggler={toggler}
+                  sources={[
+                    `${process.env.REACT_APP_API_BASE_URL}/static/videos/${
+                      data?.preview_video
+                        ? data?.preview_video
+                        : data?.sections[0]?.lectures[0]?.video
+                    }`,
+                  ]}
+                />
+              )}
             </div>
           </div>
           <div className="eduvibe-widget-details mt--35">
@@ -50,7 +67,7 @@ const CourseInfo = ({ data }) => {
                   <span>
                     <i className="icon-draft-line"></i> Lectures
                   </span>
-                  <span>2</span>
+                  <span>{lecture}</span>
                 </li>
                 {/* )} */}
                 {data.skill_level && (
@@ -77,16 +94,13 @@ const CourseInfo = ({ data }) => {
                     <span>{data.quizzes}</span>
                   </li>
                 )}
-                {data.certificate && (
-                  <li>
-                    <span>
-                      <i className="icon-award-line"></i> Certificate
-                    </span>
-                    <span>
-                      {data.certificate === "available" ? "Yes" : "No"}
-                    </span>
-                  </li>
-                )}
+
+                <li>
+                  <span>
+                    <i className="icon-award-line"></i> Certificate
+                  </span>
+                  <span>Yes</span>
+                </li>
                 {data.pass_percentage && (
                   <li>
                     <span>
@@ -120,14 +134,12 @@ const CourseInfo = ({ data }) => {
                 )}
               </ul>
               <div className="read-more-btn mt--45">
-                <a href="#" className="edu-btn btn-bg-alt w-100 text-center">
+                <button className="edu-btn btn-bg-alt w-100 text-center">
                   Price: {data.price === "0" ? "Free" : data.price}
-                </a>
+                </button>
               </div>
               <div className="read-more-btn mt--15">
-                <a href="#" className="edu-btn w-100 text-center">
-                  Buy Now
-                </a>
+                <button className="edu-btn w-100 text-center">Buy Now</button>
               </div>
               <div className="read-more-btn mt--30 text-center">
                 <div className="eduvibe-post-share">

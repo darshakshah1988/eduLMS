@@ -128,3 +128,16 @@ export const getCourseBySlugAction = async (slug) => {
     return error.data;
   }
 };
+
+export const changeCourserStatusAction = async (id, payload) => {
+  const endUrl = END_POINTS.private.course.changeState(id);
+
+  try {
+    const result = await singletonApiInstance.postRequest(endUrl, payload);
+    const response = result?.data;
+
+    return response;
+  } catch (error) {
+    return error.data;
+  }
+};

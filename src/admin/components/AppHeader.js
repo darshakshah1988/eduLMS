@@ -30,7 +30,7 @@ const AppHeader = () => {
         <CHeaderBrand className="mx-auto d-md-none" to="/">
           {/* <CIcon icon={logo} height={48} alt="Logo" /> */}
           <img
-            src="/images/logo/idevelope.jpeg"
+            src="/images/logo/idevelope.png"
             alt="Logo"
             className="icon icon-custom-size sidebar-brand-full"
             height={48}

@@ -1,17 +1,8 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import CourseFilterSidebar from "./pages/course/CourseFilterSidebar";
 import AboutUs from "./pages/innerpages/AboutUs";
 import BlogGridOne from "./pages/blog/BlogGridOne";
 import BlogGridTwo from "./pages/blog/BlogGridTwo";
-import BlogGridThree from "./pages/blog/BlogGridThree";
-import BlogCarousel from "./pages/blog/BlogCarousel";
-import BlogLoadMore from "./pages/blog/BlogLoadMore";
-import BlogStandard from "./pages/blog/BlogStandard";
-import BlogGridRightSidebar from "./pages/blog/BlogGridRightSidebar";
-import BlogGridLeftSidebar from "./pages/blog/BlogGridLeftSidebar";
-import BlogDetailsOne from "./pages/detailspages/BlogDetailsOne";
-import BlogDetailsTwo from "./pages/detailspages/BlogDetailsTwo";
 import BlogDetailsThree from "./pages/detailspages/BlogDetailsThree";
 import CategoryArchive from "./pages/archive/CategoryArchive";
 import TagArchive from "./pages/archive/TagArchive";
@@ -26,7 +17,6 @@ import CourseCarousel from "./pages/course/CourseCarousel";
 import CourseLoadMore from "./pages/course/CourseLoadMore";
 import CourseCategoryArchive from "./pages/archive/CourseCategoryArchive";
 import CourseDetails from "./pages/detailspages/CourseDetails";
-import CourseDetailsTwo from "./pages/detailspages/CourseDetailsTwo";
 import EventGrid from "./pages/innerpages/EventGrid";
 import EventList from "./pages/innerpages/EventList";
 import EventLoadMore from "./pages/innerpages/EventLoadMore";
@@ -80,7 +70,7 @@ function Frontend() {
         element={<CourseOne />}
       />
 
-      <Route
+      {/* <Route
         exact
         path={`${process.env.PUBLIC_URL + "/course-filter-1"}`}
         element={<CourseFilterOne />}
@@ -99,7 +89,7 @@ function Frontend() {
         exact
         path={`${process.env.PUBLIC_URL + "/course-load-more"}`}
         element={<CourseLoadMore />}
-      />
+      /> */}
       <Route
         exact
         path={`${process.env.PUBLIC_URL + "/course-category/:slug"}`}

@@ -12,12 +12,18 @@ import {
 } from "@coreui/react";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, FormCheck } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getCourseListForAdminAction } from "src/actions/courseActions";
+import { toast } from "react-toastify";
+import {
+  changeCourserStatusAction,
+  getCourseListForAdminAction,
+} from "src/actions/courseActions";
 
 const Course = () => {
   const [list, setList] = useState([]);
+  const { userInfo } = useSelector((state) => state?.userInfo);
   const navigate = useNavigate();
   useEffect(() => {
     getCourseListForAdminAction().then((response) => {
@@ -54,27 +60,13 @@ const Course = () => {
           </CTableHead>
           <CTableBody>
             {list.map((item, index) => (
-              <CTableRow key={index}>
-                <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
-                <CTableDataCell>{item.title}</CTableDataCell>
-                <CTableDataCell>{item.skill_level}</CTableDataCell>
-                <CTableDataCell>{item.status}</CTableDataCell>
-                <CTableDataCell>
-                  {moment(item.createdAt).format("DD-MM-YYYY")}
-                </CTableDataCell>
-                <CTableDataCell>
-                  <Button
-                    className="btn btn-primary btn-sm me-2"
-                    type="button"
-                    onClick={() => navigate(`/admin/edit-course/${item.id}`)}
-                  >
-                    Edit
-                  </Button>
-                  <Button className="btn btn-danger btn-sm" type="button">
-                    Delete
-                  </Button>
-                </CTableDataCell>
-              </CTableRow>
+              <CourseRow
+                item={item}
+                key={index}
+                index={index}
+                userInfo={userInfo}
+                navigate={navigate}
+              />
             ))}
           </CTableBody>
         </CTable>
@@ -93,5 +85,59 @@ const Course = () => {
     </CCard>
   );
 };
-
+function CourseRow({ item, index, userInfo, navigate }) {
+  const [active, setActive] = useState(item.status === "active");
+  const onChangeToggle = () => {
+    const data = {
+      status: !active ? "active" : "inactive",
+    };
+    changeCourserStatusAction(item.id, data)
+      .then((response) => {
+        if (response.status) {
+          toast.success(response?.message);
+          setActive(!active);
+        } else {
+          toast.error(response?.message);
+        }
+      })
+      .catch(() => {
+        toast.error("Something wrong!, Please try again");
+      });
+  };
+  console.log(active);
+  return (
+    <CTableRow>
+      <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
+      <CTableDataCell>{item.title}</CTableDataCell>
+      <CTableDataCell>{item.skill_level}</CTableDataCell>
+      <CTableDataCell>
+        {userInfo.role !== "admin" ? (
+          item.status
+        ) : (
+          <FormCheck
+            type="switch"
+            checked={active}
+            onChange={() => onChangeToggle()}
+            label="Enable"
+          />
+        )}
+      </CTableDataCell>
+      <CTableDataCell>
+        {moment(item.createdAt).format("DD-MM-YYYY")}
+      </CTableDataCell>
+      <CTableDataCell>
+        <Button
+          className="btn btn-primary btn-sm me-2"
+          type="button"
+          onClick={() => navigate(`/admin/edit-course/${item.id}`)}
+        >
+          Edit
+        </Button>
+        <Button className="btn btn-danger btn-sm" type="button">
+          Delete
+        </Button>
+      </CTableDataCell>
+    </CTableRow>
+  );
+}
 export default Course;

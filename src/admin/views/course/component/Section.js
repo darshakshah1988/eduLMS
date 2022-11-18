@@ -17,9 +17,10 @@ const CurriculumSectionComponent = ({ data, isNew, loadData, order }) => {
   const formik = useFormik({
     initialValues: {
       title: "",
+      details: "",
     },
-    onSubmit: ({ title }) => {
-      const fdata = { title, order, courseId: id };
+    onSubmit: ({ title, details }) => {
+      const fdata = { title, details, order, courseId: id };
 
       createCourseSection(fdata).then((response) => {
         if (response.status) {
@@ -72,6 +73,21 @@ const CurriculumSectionComponent = ({ data, isNew, loadData, order }) => {
               )}
             </div>
           </div>
+          <div className="row">
+            <div className="col-md-6 mb-2">
+              <label htmlFor="details" className="form-label">
+                Section Details *
+              </label>
+              <textarea
+                className="form-control"
+                id="details"
+                name="details"
+                value={formik.values.details}
+                onChange={formik.handleChange}
+                rows={3}
+              />
+            </div>
+          </div>
           <div className="action">
             <button type="submit" className="btn btn-primary right">
               Add Section
@@ -88,6 +104,7 @@ const CurriculumSectionComponent = ({ data, isNew, loadData, order }) => {
           <b>Section-{data.order + 1}:</b> {data.title}{" "}
         </h6>
       </div>
+      <p>{data.details}</p>
       <div className="lectures">
         {lectures.map((lecture, i) => (
           <LectureComponent

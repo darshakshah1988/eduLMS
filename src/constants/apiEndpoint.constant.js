@@ -15,11 +15,14 @@ const enpoint = Object.freeze({
         videoUpload: (id) =>
           `/api/v1/admin/course/section/lecture/${id}/upload`,
       },
+      changeState: (id) => `/api/v1/admin/course/${id}/update-status`,
     },
     blog: {
       list: "/api/v1/admin/blog/list",
       create: `/api/v1/admin/blog/create`,
     },
+    videoupload: `/api/v1/admin/videoupload`,
+    imageupload: `/api/v1/admin/imageupload`,
   },
   public: {
     course: {
