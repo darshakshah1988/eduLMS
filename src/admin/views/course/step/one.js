@@ -182,7 +182,7 @@ const CourseStepOne = () => {
               {!selectVideoFile ? (
                 <>
                   <Dropzone
-                    accept={{ "video/mp4": [] }}
+                    accept={{ "video/*": [] }}
                     onDrop={(acceptedFiles) => onSelectVideo(acceptedFiles)}
                     onDropRejected={(fileRejections) =>
                       setVideoDropRejectError(fileRejections)
